@@ -1,0 +1,45 @@
+/* Navbar gradient style */
+.navbar-bg {
+    background: linear-gradient(to bottom, #360033, #0b8793);
+}
+
+.navbar-bg a {
+    color: azure;
+    font-weight: 500;
+}
+
+/* Appointment button style */
+/* .appointment-btn {
+    background: linear-gradient(to right, #4568dc, #b06ab3);
+    color: azure;
+    font-weight: 600;
+} */
+
+/* .appointment-btn:hover {
+    background: linear-gradient(to right, #213fa1, #6b2d6d)
+} */
+
+/* Sign-out button gradient style */
+/* .btn-grad {
+    background-image: linear-gradient(to right, #780206 0%, #061161 51%, #780206 100%);
+    padding: 8px 14px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 10px #eee;
+    border-radius: 10px;
+    display: block;
+} */
+
+/* .btn-grad:hover {
+    background-position: right center;
+    change the direction of the change here
+    color: #fff;
+    text-decoration: none;
+}
+ */
+.active {
+    border-bottom: 3px solid black;
+}
