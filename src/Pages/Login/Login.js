@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 const Login = () => {
     return (
         <div className='mx-auto row container form-page-bg '>
-            <div className='d-flex flex-column justify-content-center align-items-center vh-100'>
-                <img className='w-50 w-md-25' src="https://i.ibb.co/HK9gk4g/Screenshot-30.png" alt="Brand-Logo" />
+            <div className='d-flex flex-column justify-content-center align-items-center'>
+                <img className='w-50 w-md-50' src="https://i.ibb.co/GPmw7w0/Screenshot-30.png" alt="Brand logo" />
                 <div className='col-12 col-md-6 p-5 shadow-lg bg-body-tertiary rounded'>
                     <Form>
                         <h1 className='text-center my-4'>Please Login</h1>
