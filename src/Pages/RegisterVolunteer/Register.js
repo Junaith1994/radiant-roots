@@ -1,7 +1,14 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import { useParams } from 'react-router-dom';
 
 const Register = () => {
+    // Auth state firebase hook
+    const [user, loading, error] = useAuthState(auth);
+    const { title } = useParams();
+
     return (
         <div className='mx-auto row container'>
             <div className='d-flex flex-column justify-content-center align-items-center'>
@@ -10,12 +17,12 @@ const Register = () => {
                     <h1 className='text-center my-4'>Register As A Volunteer</h1>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Full Name</Form.Label>
-                        <Form.Control type="text" required />
+                        <Form.Control type="text" defaultValue={user?.displayName} required />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" required />
+                        <Form.Control type="email" value={user?.email} readOnly disabled required />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicDate">
                         <Form.Label>Date</Form.Label>
@@ -30,7 +37,7 @@ const Register = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicActivity">
                         <Form.Label>Activity</Form.Label>
-                        <Form.Control type="text" required/>
+                        <Form.Control type="text" value={title} readOnly required />
                     </Form.Group>
                     <div>
                         <Button className='w-100 fw-semibold' variant="primary" type="submit">

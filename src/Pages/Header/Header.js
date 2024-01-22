@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -23,15 +23,21 @@ const Header = () => {
                         <Nav.Link as={NavLink} to='/events'>Events</Nav.Link>
                         <Nav.Link as={NavLink} to='/blog'>Blog</Nav.Link>
                         {
-                            user || loading1 ? <Button onClick={() => signOut()} className='me-2 fw-semibold' variant='danger'>Sign-Out</Button>
+                            user || loading1
+                                ?
+                                <NavDropdown className='text-center' menuVariant='dark' title={user?.displayName || user?.email} id="nav-dropdown">
+                                    <NavDropdown.Item eventKey="4.1" bsPrefix='bs-navbar-bg'>
+                                        <Button onClick={() => signOut()} className=' fw-semibold' variant='danger'>Sign-Out</Button>
+                                    </NavDropdown.Item>
+                                </NavDropdown>
                                 :
                                 <>
                                     <Button as={NavLink} className='me-2 fw-semibold' variant='dark' to='/login'>Login</Button>
                                     <Button className='fw-semibold me-2' variant='dark'>Admin</Button>
                                 </>
                         }
-                        <Button as={NavLink} className='me-2' variant='primary' to='/volunteer-register'>Register</Button>
-                        {user && <Nav.Link className='fw-semibold' as={NavLink} to='/'>{user?.displayName || user?.email}</Nav.Link>}
+                        <Button as={NavLink} className='' variant='primary' to='/volunteer-register'>Register</Button>
+                        {/* {user && <Nav.Link className='fw-semibold' as={NavLink} to='/'>{user?.displayName || user?.email}</Nav.Link>} */}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
