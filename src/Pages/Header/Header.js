@@ -2,8 +2,15 @@ import React from 'react';
 import './Header.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const Header = () => {
+    // Auth state Firebase hook
+    const [user, loading1, error1] = useAuthState(auth);
+    // User sign-out
+    const [signOut, loading2, error2] = useSignOut(auth);
+
     return (
         <Navbar expand="lg" className="navbar-bg navbar-dark" sticky='top'>
             <Container>
@@ -15,9 +22,16 @@ const Header = () => {
                         <Nav.Link as={NavLink} to='/donation'>Donation</Nav.Link>
                         <Nav.Link as={NavLink} to='/events'>Events</Nav.Link>
                         <Nav.Link as={NavLink} to='/blog'>Blog</Nav.Link>
-                        <Button as={NavLink} className='me-2' variant='dark' to='/login'>Login</Button>
+                        {
+                            user || loading1 ? <Button onClick={() => signOut()} className='me-2 fw-semibold' variant='danger'>Sign-Out</Button>
+                                :
+                                <>
+                                    <Button as={NavLink} className='me-2 fw-semibold' variant='dark' to='/login'>Login</Button>
+                                    <Button className='fw-semibold me-2' variant='dark'>Admin</Button>
+                                </>
+                        }
                         <Button as={NavLink} className='me-2' variant='primary' to='/volunteer-register'>Register</Button>
-                        <Button variant='dark'>Admin</Button>
+                        {user && <Nav.Link className='fw-semibold' as={NavLink} to='/'>{user?.displayName || user?.email}</Nav.Link>}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

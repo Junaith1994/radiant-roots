@@ -1,26 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { Link, useLocation } from 'react-router-dom';
+import auth from '../../firebase.init';
+import { toast } from 'react-toastify';
 
 const Login = () => {
+    // Necessary hooks
+    // const [errorMsg, setErrorMsg] = useState('');
+    const location = useLocation(); 
+
+    // Firebase hook
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+
+    // Form submit
+    const handleFormSubmit = event => {
+        // Default submit prevention
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        // User Sign-in
+        signInWithEmailAndPassword(email, password)
+            .then(user => {
+                toast("Login Successful !!");
+                console.log(user);
+            })
+            .catch(err => console.log(err))
+        event.target.reset()
+    }
+
     return (
         <div className='mx-auto row container form-page-bg '>
             <div className='d-flex flex-column justify-content-center align-items-center'>
                 <img className='w-50 w-md-50' src="https://i.ibb.co/GPmw7w0/Screenshot-30.png" alt="Brand logo" />
                 <div className='col-12 col-md-6 p-5 shadow-lg bg-body-tertiary rounded'>
-                    <Form>
+                    <Form onSubmit={handleFormSubmit}>
                         <h1 className='text-center my-4'>Please Login</h1>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control type="email" placeholder="Enter Your Email" required />
+                            <Form.Control type="email" name='email' placeholder="Enter Your Email" required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Control type="password" placeholder="Password" required />
+                            <Form.Control type="password" name='password' placeholder="Password" required />
                         </Form.Group>
                         <Button className='appointment-btn' variant="primary" type="submit">
                             Login
                         </Button>
+                        <p className='text-danger fw-semibold my-2'>{error?.message}</p>
                         <p className='text-danger fw-semibold my-2'>Forgot password? <Link>Reset Password</Link></p>
-                        <p className='text-danger fw-semibold'></p>
                     </Form>
                     {/* Divider */}
                     <div className='d-flex align-items-center my-2'>

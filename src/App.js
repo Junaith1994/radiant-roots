@@ -5,6 +5,8 @@ import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
 import SignUp from './Pages/SignUp/SignUp';
 import Register from './Pages/RegisterVolunteer/Register';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path='/sign-up' element={<SignUp></SignUp>}></Route>
         <Route path='/volunteer-register' element={<Register></Register>}></Route>
       </Routes>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }
