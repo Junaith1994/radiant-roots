@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
+import { Button, Container, Dropdown, DropdownButton, Nav, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -25,18 +25,25 @@ const Header = () => {
                         {
                             user || loading1
                                 ?
-                                <NavDropdown className='text-center' menuVariant='dark' title={user?.displayName || user?.email} id="nav-dropdown">
-                                    <NavDropdown.Item eventKey="4.1" bsPrefix='bs-navbar-bg'>
-                                        <Button onClick={() => signOut()} className=' fw-semibold' variant='danger'>Sign-Out</Button>
-                                    </NavDropdown.Item>
-                                </NavDropdown>
+                                <>
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            {user?.displayName || user?.email}
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu className='navbar-bg'>
+                                            <Dropdown.Item as={NavLink} to={`/volunteer-register/${user?.email}`}>Register</Dropdown.Item>
+                                            <Dropdown.Item as={NavLink} to='/add-volunteer-activities'>Add Activities</Dropdown.Item>
+                                            <Dropdown.Item as={Button} className='bg-danger fw-semibold' onClick={() => signOut()}>Sign-Out</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </>
                                 :
                                 <>
                                     <Button as={NavLink} className='me-2 fw-semibold' variant='dark' to='/login'>Login</Button>
                                     <Button className='fw-semibold me-2' variant='dark'>Admin</Button>
                                 </>
                         }
-                        <Button as={NavLink} className='' variant='primary' to='/volunteer-register'>Register</Button>
                         {/* {user && <Nav.Link className='fw-semibold' as={NavLink} to='/'>{user?.displayName || user?.email}</Nav.Link>} */}
                     </Nav>
                 </Navbar.Collapse>

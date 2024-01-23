@@ -8,6 +8,8 @@ import Register from './Pages/RegisterVolunteer/Register';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import RequireAuth from './Pages/RequireAuth/RequireAuth';
+import AddActivity from './Pages/AddActivity/AddActivity';
+import NotFound from './Pages/PageNotFound/NotFound';
 
 function App() {
   return (
@@ -22,6 +24,12 @@ function App() {
             <Register></Register>
           </RequireAuth>
         }></Route>
+        <Route path='/add-volunteer-activities' element={
+          <RequireAuth>
+            <AddActivity></AddActivity>
+          </RequireAuth>
+        }></Route>
+        <Route path='*' element={<NotFound></NotFound>}></Route>
       </Routes>
       <ToastContainer></ToastContainer>
     </div>

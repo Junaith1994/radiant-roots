@@ -37,7 +37,7 @@ const Register = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicActivity">
                         <Form.Label>Activity</Form.Label>
-                        <Form.Control type="text" value={title} readOnly required />
+                        <Form.Control type="text" defaultValue={title.includes('@') === true ? '' : title} required />
                     </Form.Group>
                     <div>
                         <Button className='w-100 fw-semibold' variant="primary" type="submit">
