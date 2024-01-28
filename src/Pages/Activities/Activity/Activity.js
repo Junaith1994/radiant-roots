@@ -17,10 +17,10 @@ const Activity = ({ activity }) => {
     }, [])
 
     return (
-        <Card onClick={() => navigate(`/volunteer-register/${activityTitle}`)} className='col-6 col-md-3 border-0 shadow-lg p-2 mb-2 bg-body-tertiary rounded-4 pe-auto'>
+        <Card onClick={() => navigate(`/volunteer-register/${activityTitle}`)} className='col-6 col-md-3 border-0 shadow-lg p-2 mb-2 bg-body-tertiary rounded-4 activity-pointer'>
             <Card.Img className='' variant="" src={img} />
-            <Card.Body style={{ "backgroundColor": color !== '#f8f9fa' && color }} className='text-center'>
-                <Card.Title className='text-white'>{activityTitle}</Card.Title>
+            <Card.Body style={{ "backgroundColor": color === '#f8f9fa' ? 'crimson' : color}} className='text-center'>
+                <Card.Title className={color === '#f8f9fa' ? 'text-dark' : 'text-light'}>{activityTitle}</Card.Title>
             </Card.Body>
         </Card>
     );

@@ -40,7 +40,8 @@ const Login = () => {
                     toast("Login Successful !!");
                     console.log(user);
                     // Navigating user to the desired route
-                    navigate(from, { replace: true });
+                    user?.user?.emailVerified === true ? navigate('/registered-activity')
+                        : navigate(from, { replace: true });
                 }
             })
             .catch(err => console.log(err))
@@ -68,7 +69,10 @@ const Login = () => {
         signInWithGoogle()
             .then(user => {
                 // Navigating user to the desired route
-                user && navigate(from, { replace: true });
+                user?.user?.emailVerified === true ? navigate('/registered-activity')
+                    : navigate(from, { replace: true });
+                // // Navigating user to the desired route
+                // user && navigate(from, { replace: true });
             })
     }
 

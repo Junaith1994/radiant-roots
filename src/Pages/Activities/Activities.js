@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Activities.css';
-import axios from 'axios';
 import Activity from './Activity/Activity';
+import useActivities from '../../hooks/useActivities';
 
 const Activities = () => {
-    const [activities, setActivities] = useState([]);
-    useEffect(() => {
-        axios.get('activitiesData.json')
-            .then(res => setActivities(res?.data))
-            .catch(err => console.log(err))
-    }, [])
+    // loading all activities data Using custom hook
+    const [activities] = useActivities();
     
     return (
         <div className='container'>

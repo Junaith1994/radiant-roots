@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 
@@ -7,7 +8,15 @@ const AddActivity = () => {
         event.preventDefault();
         const activityName = event.target.activity.value;
         const imgLinkUrl = event.target.imgLink.value;
-        console.log(activityName, imgLinkUrl);
+        // Posting new activity to server
+        axios.post('https://radiant-roots-server.vercel.app/add-activities', {
+            activityTitle: activityName,
+            img: imgLinkUrl
+        })
+        .then(res => console.log(res))
+        .catch(error => console.log(error));
+
+        // Clearing input fields
         event.target.reset();
     }
 

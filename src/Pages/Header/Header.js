@@ -8,6 +8,7 @@ import auth from '../../firebase.init';
 const Header = () => {
     // Auth state Firebase hook
     const [user, loading1, error1] = useAuthState(auth);
+    console.log(user);
     // User sign-out
     const [signOut, loading2, error2] = useSignOut(auth);
 
@@ -34,6 +35,7 @@ const Header = () => {
                                         <Dropdown.Menu className='navbar-bg'>
                                             <Dropdown.Item as={NavLink} to={`/volunteer-register/${user?.email}`}>Register</Dropdown.Item>
                                             <Dropdown.Item as={NavLink} to='/add-volunteer-activities'>Add Activities</Dropdown.Item>
+                                            <Dropdown.Item as={NavLink} to='/registered-activity'>Manage Activities</Dropdown.Item>
                                             <Dropdown.Item as={Button} className='bg-danger fw-semibold' onClick={() => signOut()}>Sign-Out</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

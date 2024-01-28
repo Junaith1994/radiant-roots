@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './Pages/Header/Header';
 import Home from './Pages/Home/Home';
@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import RequireAuth from './Pages/RequireAuth/RequireAuth';
 import AddActivity from './Pages/AddActivity/AddActivity';
 import NotFound from './Pages/PageNotFound/NotFound';
+import RegisteredActivity from './Pages/RegisteredActivity/RegisteredActivity';
 
 function App() {
   return (
@@ -27,6 +28,11 @@ function App() {
         <Route path='/add-volunteer-activities' element={
           <RequireAuth>
             <AddActivity></AddActivity>
+          </RequireAuth>
+        }></Route>
+        <Route path='/registered-activity' element={
+          <RequireAuth>
+            <RegisteredActivity></RegisteredActivity>
           </RequireAuth>
         }></Route>
         <Route path='*' element={<NotFound></NotFound>}></Route>
