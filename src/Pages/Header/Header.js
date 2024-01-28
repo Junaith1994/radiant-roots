@@ -42,7 +42,7 @@ const Header = () => {
                                 </>
                                 :
                                 <>
-                                    <Button as={NavLink} className='me-2 fw-semibold' variant='dark' to='/login'>Login</Button>
+                                    <Button as={NavLink} className='me-2 my-2 fw-semibold' variant='dark' to='/login'>Login</Button>
                                     <Button className='fw-semibold me-2' variant='dark'>Admin</Button>
                                 </>
                         }
