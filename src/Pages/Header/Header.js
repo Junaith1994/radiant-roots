@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import { Button, Container, Dropdown, DropdownButton, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Dropdown, Nav, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -8,7 +8,6 @@ import auth from '../../firebase.init';
 const Header = () => {
     // Auth state Firebase hook
     const [user, loading1, error1] = useAuthState(auth);
-    console.log(user);
     // User sign-out
     const [signOut, loading2, error2] = useSignOut(auth);
 
@@ -35,14 +34,14 @@ const Header = () => {
                                         <Dropdown.Menu className='navbar-bg'>
                                             <Dropdown.Item as={NavLink} to={`/volunteer-register/${user?.email}`}>Register</Dropdown.Item>
                                             <Dropdown.Item as={NavLink} to='/add-volunteer-activities'>Add Activities</Dropdown.Item>
-                                            <Dropdown.Item as={NavLink} to='/registered-activity'>Manage Activities</Dropdown.Item>
+                                            <Dropdown.Item as={NavLink} to='/registered-activities'>Manage Activities</Dropdown.Item>
                                             <Dropdown.Item as={Button} className='bg-danger fw-semibold' onClick={() => signOut()}>Sign-Out</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </>
                                 :
                                 <>
-                                    <Button as={NavLink} className='me-2 my-2 fw-semibold' variant='dark' to='/login'>Login</Button>
+                                    <Button as={NavLink} className='me-2 my-2 my-md-0 fw-semibold' variant='dark' to='/login'>Login</Button>
                                     <Button className='fw-semibold me-2' variant='dark'>Admin</Button>
                                 </>
                         }

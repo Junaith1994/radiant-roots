@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import axios from 'axios';
 import SingleActivity from './SingleActivity';
-import useActivities from '../../hooks/useActivities';
 import { toast } from 'react-toastify';
+import axiosPrivate from '../../API/axiosPrivate';
 
 const RegisteredActivity = () => {
     const [volunteersInfo, setVolunteersInfo] = useState([]);
 
-    // Auth state firebase hook
+    // Auth state & SignOut firebase hook
     const [user, loading, error] = useAuthState(auth);
+    const [signOut, loading1, error1] = useSignOut(auth);
 
     const volunteerEmail = user.email;
+    
     // Getting registered volunteers with registered activities
     useEffect(() => {
-        axios.get(`https://radiant-roots-server.vercel.app/registered-activities/${volunteerEmail}`)
+        axiosPrivate.get(`https://radiant-roots-server.vercel.app/registered-activities/${volunteerEmail}`)
             .then(res => {
                 setVolunteersInfo(res.data);
             })
-            .catch(error => console.log(error));
-    }, [volunteerEmail]);
+            .catch(error => {
+                console.log('Access Token Related Error', error)
+                // Signing out if access token is expired
+                localStorage.removeItem("accessToken");
+                signOut();
+            });
+    }, [volunteerEmail, signOut]);
 
     // Cancel event handler
     const handleCancelEvent = (title, id) => {

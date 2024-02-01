@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './Pages/Header/Header';
 import Home from './Pages/Home/Home';
@@ -30,7 +30,7 @@ function App() {
             <AddActivity></AddActivity>
           </RequireAuth>
         }></Route>
-        <Route path='/registered-activity' element={
+        <Route path='/registered-activities' element={
           <RequireAuth>
             <RegisteredActivity></RegisteredActivity>
           </RequireAuth>

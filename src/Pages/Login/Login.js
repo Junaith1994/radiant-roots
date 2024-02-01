@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Login = () => {
     // Necessary hooks
@@ -11,7 +12,6 @@ const Login = () => {
     const navigate = useNavigate();
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
-    console.log(from);
 
     // Firebase hook of email-password sign-in
     const [
@@ -38,10 +38,15 @@ const Login = () => {
             .then(user => {
                 if (user) {
                     toast("Login Successful !!");
-                    console.log(user);
-                    // Navigating user to the desired route
-                    user?.user?.emailVerified === true ? navigate('/registered-activity')
-                        : navigate(from, { replace: true });
+                    // Sending data to generate jwt token
+                    axios.post('https://radiant-roots-server.vercel.app/createNewUser', { email: email })
+                        .then(async res => {
+                            await res.data && localStorage.setItem('accessToken', res.data);
+                            // Navigating user to the desired route
+                            user?.user?.emailVerified === true ? navigate('/registered-activities')
+                                : navigate(from, { replace: true });
+                        })
+
                 }
             })
             .catch(err => console.log(err))

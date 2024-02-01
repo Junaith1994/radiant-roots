@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './Activities.css';
 import Activity from './Activity/Activity';
 import useActivities from '../../hooks/useActivities';
