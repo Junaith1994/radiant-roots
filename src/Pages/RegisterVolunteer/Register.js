@@ -7,11 +7,10 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Register = () => {
-    // Auth state firebase hook
+    // firebase hooks
     const [user, loading, error] = useAuthState(auth);
-    console.log(user);
     const [sendEmailVerification, sending, error2] = useSendEmailVerification(auth);
-    const { title } = useParams();
+    const { title } = useParams(); // raect-router-dom hook
 
     // Email verification handler
     const emailVerification = async () => {

@@ -73,11 +73,17 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(user => {
-                // Navigating user to the desired route
-                user?.user?.emailVerified === true ? navigate('/registered-activity')
-                    : navigate(from, { replace: true });
-                // // Navigating user to the desired route
-                // user && navigate(from, { replace: true });
+                if (user) {
+                    // Sending data to generate jwt token
+                    axios.post('https://radiant-roots-server.vercel.app/createNewUser', { email: user.user.email })
+                        .then(async res => {
+                            await res.data && localStorage.setItem('accessToken', res.data);
+                            // Navigating user to the desired route
+                            user?.user?.emailVerified === true ? navigate('/registered-activities')
+                                : navigate(from, { replace: true });
+                        })
+
+                }
             })
     }
 
